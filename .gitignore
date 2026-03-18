@@ -1,0 +1,28 @@
+# env - 절대 커밋하지 말것
+.env
+.env.local
+.env.*.local
+
+# deps
+node_modules/
+*/node_modules/
+
+# build
+dist/
+.next/
+*/dist/
+*/.next/
+
+# prisma migrations (서버에서 관리)
+api/prisma/migrations/
+
+# logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings
+.claude/settings.local.json
