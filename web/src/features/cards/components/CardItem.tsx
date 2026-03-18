@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import type { Card } from '@/lib/api'
 import TagBadge from '@/components/ui/TagBadge'
+import MarkdownBody from '@/components/ui/MarkdownBody'
+import CardRelations from './CardRelations'
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr)
@@ -51,12 +53,11 @@ export default function CardItem({ card }: { card: Card }) {
 
       {expanded && (
         <div className="px-4 pb-4 border-t border-gray-700">
-          <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap mt-3">
-            {card.body}
-          </p>
+          <MarkdownBody content={card.body} className="text-gray-300 text-sm leading-relaxed mt-3" />
           {card.source && (
             <p className="text-gray-500 text-xs mt-3">출처: {card.source}</p>
           )}
+          <CardRelations cardId={card.id} />
           <div className="flex gap-4 mt-3 text-xs text-gray-600">
             <span>반복: {card.repetitions}회</span>
             <span>간격: {card.interval}일</span>

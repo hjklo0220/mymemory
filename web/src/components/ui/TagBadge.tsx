@@ -22,7 +22,7 @@ const tagLabels: Record<Tag, string> = {
 export default function TagBadge({ tag, size = 'sm' }: TagBadgeProps) {
   const sizeClass = size === 'sm' ? 'px-2 py-0.5 text-xs' : 'px-3 py-1 text-sm'
   return (
-    <span className={`inline-block rounded-full font-medium ${sizeClass} ${tagStyles[tag]}`}>
+    <span className={`inline-block rounded-md font-medium ${sizeClass} ${tagStyles[tag]}`}>
       {tagLabels[tag]}
     </span>
   )

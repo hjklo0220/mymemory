@@ -1,4 +1,6 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+const API_URL = typeof window === 'undefined'
+  ? (process.env.API_INTERNAL_URL || 'http://api:3001')
+  : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001')
 
 export type Tag = 'linux' | 'docker' | 'k8s' | 'general'
 
@@ -80,6 +82,37 @@ export async function updateCard(id: string, data: UpdateCardInput): Promise<Car
 
 export async function deleteCard(id: string): Promise<void> {
   return fetchAPI<void>(`/cards/${id}`, {
+    method: 'DELETE',
+  })
+}
+
+// Relations
+export interface RelatedCard {
+  id: string
+  title: string
+  tag: string
+  relationType: 'related' | 'deepdive'
+  depth: number
+  similarity?: number
+}
+
+export async function getRelations(cardId: string): Promise<RelatedCard[]> {
+  return fetchAPI<RelatedCard[]>(`/cards/${cardId}/relations`)
+}
+
+export async function getSuggestedRelations(cardId: string): Promise<RelatedCard[]> {
+  return fetchAPI<RelatedCard[]>(`/cards/${cardId}/relations/suggestions`)
+}
+
+export async function addRelation(cardId: string, data: { toCardId: string; type: 'related' | 'deepdive'; depth: number }): Promise<void> {
+  return fetchAPI<void>(`/cards/${cardId}/relations`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function removeRelation(cardId: string, relationId: string): Promise<void> {
+  return fetchAPI<void>(`/cards/${cardId}/relations/${relationId}`, {
     method: 'DELETE',
   })
 }
