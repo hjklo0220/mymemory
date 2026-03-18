@@ -25,6 +25,7 @@ docker compose exec api npx prisma migrate dev --name init  # 최초 1회
 | `/add-migration [desc]` | Prisma 마이그레이션 |
 | `/deploy` | 서버 배포 가이드 |
 | `/git-flow` | 커밋 · 푸시 워크플로우 |
+| `/ux-flow [주제]` | 학습과학 근거 기반 UX 플로우 설계 |
 
 **커밋은 반드시 `/git-flow` 를 사용한다.**
 
