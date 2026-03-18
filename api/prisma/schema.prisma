@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
@@ -21,6 +22,22 @@ model Card {
   updatedAt    DateTime @updatedAt
 
   reviews      Review[]
+  relationsFrom CardRelation[] @relation("FromCard")
+  relationsTo   CardRelation[] @relation("ToCard")
+}
+
+model CardRelation {
+  id         String   @id @default(cuid())
+  fromCardId String
+  toCardId   String
+  type       String   // 'related' | 'deepdive'
+  depth      Int      @default(0) // deepdive 순서 (0=related)
+  createdAt  DateTime @default(now())
+
+  fromCard   Card     @relation("FromCard", fields: [fromCardId], references: [id], onDelete: Cascade)
+  toCard     Card     @relation("ToCard", fields: [toCardId], references: [id], onDelete: Cascade)
+
+  @@unique([fromCardId, toCardId])
 }
 
 model Review {
