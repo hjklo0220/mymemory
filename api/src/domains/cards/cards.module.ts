@@ -1,11 +1,18 @@
 import { Module } from '@nestjs/common';
-import { CardsController } from './cards.controller';
-import { CardsService } from './cards.service';
-import { CardsRepository } from './cards.repository';
+import { CardsController } from './presentation/cards.controller';
+import { CardsService } from './application/cards.service';
+import { PrismaCardsRepository } from './infrastructure/prisma-cards.repository';
+import { CARDS_REPOSITORY } from './domain/ports/cards.repository.port';
 
 @Module({
   controllers: [CardsController],
-  providers: [CardsService, CardsRepository],
-  exports: [CardsService, CardsRepository],
+  providers: [
+    CardsService,
+    {
+      provide: CARDS_REPOSITORY,
+      useClass: PrismaCardsRepository,
+    },
+  ],
+  exports: [CardsService, CARDS_REPOSITORY],
 })
 export class CardsModule {}

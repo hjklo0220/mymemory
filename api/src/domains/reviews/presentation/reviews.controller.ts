@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
-import { ReviewsService } from './reviews.service';
+import { ReviewsService } from '../application/reviews.service';
 import { SubmitReviewDto } from './dto/submit-review.dto';
 
 @Controller('reviews')
