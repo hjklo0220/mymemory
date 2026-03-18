@@ -30,6 +30,26 @@ export function useReviewSession() {
     loadCards()
   }, [loadCards])
 
+  const advance = useCallback(() => {
+    setCurrentIndex((prev) => {
+      const next = prev + 1
+      if (next >= cards.length) {
+        setDone(true)
+        return prev
+      }
+      setRevealed(false)
+      return next
+    })
+  }, [cards.length])
+
+  const insertNextCard = useCallback((card: Card) => {
+    setCards((prev) => {
+      const next = [...prev]
+      next.splice(currentIndex + 1, 0, card)
+      return next
+    })
+  }, [currentIndex])
+
   const handleRate = async (rating: 0 | 3 | 5) => {
     if (submitting) return
     const card = cards[currentIndex]
@@ -38,13 +58,6 @@ export function useReviewSession() {
     setSubmitting(true)
     try {
       await submitReview(card.id, rating)
-      const next = currentIndex + 1
-      if (next >= cards.length) {
-        setDone(true)
-      } else {
-        setCurrentIndex(next)
-        setRevealed(false)
-      }
     } catch {
       setError('평가 제출에 실패했습니다.')
     } finally {
@@ -69,6 +82,8 @@ export function useReviewSession() {
     error,
     done,
     handleRate,
+    advance,
+    insertNextCard,
     retry: loadCards,
   }
 }

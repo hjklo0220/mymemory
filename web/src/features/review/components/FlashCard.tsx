@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import type { Card } from '@/lib/api'
 import TagBadge from '@/components/ui/TagBadge'
+import MarkdownBody from '@/components/ui/MarkdownBody'
 
 interface FlashCardProps {
   card: Card
@@ -53,9 +54,7 @@ export default function FlashCard({ card, onReveal, revealed = false }: FlashCar
         ) : (
           <div className="mt-4">
             <div className="border-t border-gray-700 pt-4">
-              <p className="text-gray-200 text-base leading-relaxed whitespace-pre-wrap">
-                {card.body}
-              </p>
+              <MarkdownBody content={card.body} className="text-gray-200 text-base leading-relaxed" />
               {card.source && (
                 <p className="mt-3 text-gray-500 text-sm">
                   출처: {card.source}

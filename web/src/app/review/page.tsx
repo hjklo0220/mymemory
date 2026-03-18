@@ -1,8 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import { useReviewSession } from '@/features/review/hooks/useReviewSession'
 import FlashCard from '@/features/review/components/FlashCard'
 import RatingButtons from '@/features/review/components/RatingButtons'
+import DeepDiveHint from '@/features/review/components/DeepDiveHint'
+import { getRelations, getCard, type RelatedCard } from '@/lib/api'
 
 export default function ReviewPage() {
   const {
@@ -17,8 +20,54 @@ export default function ReviewPage() {
     done,
     submitting,
     handleRate,
+    advance,
+    insertNextCard,
     retry,
   } = useReviewSession()
+
+  const [deepdiveHint, setDeepdiveHint] = useState<RelatedCard | null>(null)
+  const [deepdiveLoading, setDeepdiveLoading] = useState(false)
+
+  const onRate = async (rating: 0 | 3 | 5) => {
+    await handleRate(rating)
+
+    if (rating === 5 && currentCard && currentCard.interval >= 3) {
+      try {
+        const relations = await getRelations(currentCard.id)
+        const deepdives = relations
+          .filter((r) => r.relationType === 'deepdive')
+          .sort((a, b) => a.depth - b.depth)
+        if (deepdives.length > 0) {
+          setDeepdiveHint(deepdives[0])
+          return
+        }
+      } catch {
+        // 힌트 실패는 조용히 무시하고 그냥 진행
+      }
+    }
+
+    advance()
+  }
+
+  const handleDeepDiveAccept = async () => {
+    if (!deepdiveHint) return
+    setDeepdiveLoading(true)
+    try {
+      const card = await getCard(deepdiveHint.id)
+      insertNextCard(card)
+    } catch {
+      // 카드 로드 실패 시 그냥 진행
+    } finally {
+      setDeepdiveLoading(false)
+      setDeepdiveHint(null)
+      advance()
+    }
+  }
+
+  const handleDeepDiveDismiss = () => {
+    setDeepdiveHint(null)
+    advance()
+  }
 
   if (loading) {
     return (
@@ -92,11 +141,21 @@ export default function ReviewPage() {
         onReveal={() => setShowAnswer(true)}
       />
 
-      {/* Rating Buttons — only shown when revealed */}
-      {showAnswer && (
+      {/* DeepDive Hint — shown after good rating when eligible */}
+      {deepdiveHint && (
+        <DeepDiveHint
+          hint={deepdiveHint}
+          onAccept={handleDeepDiveAccept}
+          onDismiss={handleDeepDiveDismiss}
+          loading={deepdiveLoading}
+        />
+      )}
+
+      {/* Rating Buttons — hidden while deepdive hint is showing */}
+      {showAnswer && !deepdiveHint && (
         <div className="mt-2">
           <p className="text-gray-400 text-sm text-center mb-3">얼마나 기억하나요?</p>
-          <RatingButtons onRate={handleRate} disabled={submitting} />
+          <RatingButtons onRate={onRate} disabled={submitting} />
         </div>
       )}
     </div>
