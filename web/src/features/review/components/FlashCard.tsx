@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import type { Card } from '@/lib/api'
-import TagBadge from './TagBadge'
+import TagBadge from '@/components/ui/TagBadge'
 
 interface FlashCardProps {
   card: Card
