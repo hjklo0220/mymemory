@@ -13,8 +13,6 @@ dist/
 */dist/
 */.next/
 
-# prisma migrations (서버에서 관리)
-api/prisma/migrations/
 
 # logs
 *.log
