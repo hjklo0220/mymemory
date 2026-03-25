@@ -4,6 +4,7 @@ description: >
   Prisma 스키마 변경을 분석하고 안전한 마이그레이션 계획을 수립한다.
   스키마 파일을 수정하되, migrate 명령 실행은 사용자에게 안내만 한다.
 tools: Read, Edit, Glob
+model: sonnet
 ---
 
 컨벤션 규칙: @.claude/rules/conventions.md

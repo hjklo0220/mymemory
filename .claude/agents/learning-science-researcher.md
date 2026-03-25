@@ -4,6 +4,7 @@ description: >
   학습과학 연구를 조사하여 UX 설계에 활용할 수 있는 근거를 수집한다.
   주제별 논문·연구·사례를 탐색하고 앱 맥락에 맞는 시사점을 정리한다.
 tools: WebSearch, WebFetch
+model: opus
 ---
 
 ## 역할

@@ -5,6 +5,7 @@ description: >
   module, controller, service, repository, dto 파일을 생성하고
   app.module.ts에 모듈을 등록한다.
 tools: Write, Read, Edit, Glob
+model: sonnet
 ---
 
 컨벤션 규칙: @.claude/rules/conventions.md

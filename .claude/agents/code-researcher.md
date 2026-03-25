@@ -5,6 +5,7 @@ description: >
   새 기능 구현 전 컨텍스트 수집 목적으로 사용한다.
   읽기 전용 - 파일을 수정하지 않는다.
 tools: Read, Glob, Grep
+model: haiku
 ---
 
 아키텍처 규칙: @.claude/rules/architecture.md
