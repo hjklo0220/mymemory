@@ -36,11 +36,13 @@ export default function FlashCard({ card, onReveal, revealed = false }: FlashCar
           transition-all duration-300
         `}
       >
-        <div className="flex items-start justify-between gap-2 mb-4">
-          <h2 className="text-white text-xl font-bold leading-snug flex-1">
+        <div className="mb-4">
+          <div className="mb-2">
+            <TagBadge tag={card.tag} />
+          </div>
+          <h2 className="text-white text-xl font-bold leading-snug">
             {card.title}
           </h2>
-          <TagBadge tag={card.tag} />
         </div>
 
         {!isFlipped ? (
