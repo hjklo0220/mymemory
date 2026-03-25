@@ -49,7 +49,7 @@ export default function CardItem({ card, highlighted }: CardItemProps) {
         className="w-full text-left px-4 py-4 flex items-start justify-between gap-3"
       >
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1.5">
+          <div className="flex items-center gap-3 mb-2">
             <TagBadge tag={card.tag} />
             <span className="text-gray-500 text-xs">
               다음 복습: {formatDate(card.nextReviewAt)}
@@ -74,7 +74,7 @@ export default function CardItem({ card, highlighted }: CardItemProps) {
             <p className="text-gray-500 text-xs mt-3">출처: {card.source}</p>
           )}
           <CardRelations cardId={card.id} />
-          <div className="flex gap-4 mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500">
+          <div className="flex gap-4 mt-5 pt-4 border-t border-gray-700/50 text-xs text-gray-500">
             <span>반복: {card.repetitions}회</span>
             <span>간격: {card.interval}일</span>
           </div>

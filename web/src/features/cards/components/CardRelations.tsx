@@ -51,7 +51,7 @@ export default function CardRelations({ cardId }: Props) {
     return (
       <button
         onClick={handleShowSuggestions}
-        className="mt-4 text-xs text-indigo-400 hover:text-indigo-300 py-2"
+        className="mt-5 text-xs text-indigo-400 hover:text-indigo-300 py-2"
       >
         + 연관 카드 추천 받기
       </button>
@@ -59,7 +59,7 @@ export default function CardRelations({ cardId }: Props) {
   }
 
   return (
-    <div className="mt-4 space-y-3">
+    <div className="mt-5 space-y-4">
       {/* 관련 개념 */}
       {related.length > 0 && (
         <div>

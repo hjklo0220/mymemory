@@ -103,17 +103,17 @@ export default function CardList({
           {/* Sort + count */}
           <div className="flex items-center justify-between">
             <p className="text-gray-500 text-sm">{cards.length}장의 카드</p>
-            <div className="flex gap-1">
+            <div className="flex gap-2">
               <button
                 onClick={() => setSortOrder('newest')}
-                className={`text-xs px-2.5 py-1.5 rounded-lg transition-colors
+                className={`text-xs px-3 py-1.5 rounded-lg transition-colors
                   ${sortOrder === 'newest' ? 'bg-gray-700 text-white' : 'text-gray-500 hover:text-gray-300'}`}
               >
                 최신순
               </button>
               <button
                 onClick={() => setSortOrder('review')}
-                className={`text-xs px-2.5 py-1.5 rounded-lg transition-colors
+                className={`text-xs px-3 py-1.5 rounded-lg transition-colors
                   ${sortOrder === 'review' ? 'bg-gray-700 text-white' : 'text-gray-500 hover:text-gray-300'}`}
               >
                 복습순
