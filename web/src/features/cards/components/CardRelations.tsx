@@ -51,7 +51,7 @@ export default function CardRelations({ cardId }: Props) {
     return (
       <button
         onClick={handleShowSuggestions}
-        className="mt-3 text-xs text-indigo-400 hover:text-indigo-300"
+        className="mt-4 text-xs text-indigo-400 hover:text-indigo-300 py-2"
       >
         + 연관 카드 추천 받기
       </button>
@@ -59,17 +59,17 @@ export default function CardRelations({ cardId }: Props) {
   }
 
   return (
-    <div className="mt-3 space-y-3">
+    <div className="mt-4 space-y-3">
       {/* 관련 개념 */}
       {related.length > 0 && (
         <div>
-          <p className="text-xs text-gray-500 mb-1.5">관련 개념</p>
+          <p className="text-[11px] font-medium text-gray-500 uppercase tracking-wider mb-2">관련 개념</p>
           <div className="flex flex-wrap gap-2">
             {related.map((r) => (
               <Link
                 key={r.id}
                 href={`/cards?highlight=${r.id}`}
-                className="flex items-center gap-1.5 bg-gray-700 hover:bg-gray-600 rounded-lg px-2.5 py-1 transition-colors"
+                className="flex items-center gap-1.5 bg-gray-700 hover:bg-gray-600 rounded-lg px-3 py-2 transition-colors"
               >
                 <TagBadge tag={r.tag as Tag} />
                 <span className="text-gray-300 text-xs">{r.title}</span>
@@ -82,13 +82,13 @@ export default function CardRelations({ cardId }: Props) {
       {/* 딥다이브 경로 */}
       {deepdive.length > 0 && (
         <div>
-          <p className="text-xs text-gray-500 mb-1.5">딥다이브 경로</p>
-          <div className="flex items-center gap-1 flex-wrap">
+          <p className="text-[11px] font-medium text-gray-500 uppercase tracking-wider mb-2">딥다이브 경로</p>
+          <div className="flex items-center gap-1.5 flex-wrap">
             {deepdive.map((r, i) => (
-              <div key={r.id} className="flex items-center gap-1">
+              <div key={r.id} className="flex items-center gap-1.5">
                 <Link
                   href={`/cards?highlight=${r.id}`}
-                  className="bg-indigo-900/50 hover:bg-indigo-900/80 border border-indigo-700/50 rounded-lg px-2.5 py-1 text-xs text-indigo-300 transition-colors"
+                  className="bg-indigo-900/50 hover:bg-indigo-900/80 border border-indigo-700/50 rounded-lg px-3 py-2 text-xs text-indigo-300 transition-colors"
                 >
                   {i + 1}단계 · {r.title}
                 </Link>
@@ -102,13 +102,13 @@ export default function CardRelations({ cardId }: Props) {
       {/* 추천 */}
       {showSuggestions && (
         <div>
-          <p className="text-xs text-gray-500 mb-1.5">추천 연관 카드</p>
+          <p className="text-[11px] font-medium text-gray-500 uppercase tracking-wider mb-2">추천 연관 카드</p>
           {loadingSuggestions ? (
             <p className="text-xs text-gray-600">분석 중...</p>
           ) : suggestions.length === 0 ? (
             <p className="text-xs text-gray-600">추천할 카드가 없습니다</p>
           ) : (
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               {suggestions.map((s) => (
                 <div key={s.id} className="flex items-center gap-2">
                   <span className="text-gray-400 text-xs flex-1 truncate">{s.title}</span>
@@ -117,13 +117,13 @@ export default function CardRelations({ cardId }: Props) {
                   )}
                   <button
                     onClick={() => handleAddRelation(s, 'related')}
-                    className="text-xs text-blue-400 hover:text-blue-300"
+                    className="text-xs text-blue-400 hover:text-blue-300 py-1.5 px-2"
                   >
                     관련
                   </button>
                   <button
                     onClick={() => handleAddRelation(s, 'deepdive')}
-                    className="text-xs text-indigo-400 hover:text-indigo-300"
+                    className="text-xs text-indigo-400 hover:text-indigo-300 py-1.5 px-2"
                   >
                     딥다이브
                   </button>
@@ -137,7 +137,7 @@ export default function CardRelations({ cardId }: Props) {
       {!showSuggestions && (
         <button
           onClick={handleShowSuggestions}
-          className="text-xs text-indigo-400 hover:text-indigo-300"
+          className="text-xs text-indigo-400 hover:text-indigo-300 py-2"
         >
           + 더 추천 받기
         </button>
